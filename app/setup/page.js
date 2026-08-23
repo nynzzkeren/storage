@@ -98,6 +98,12 @@ export default function Setup() {
           <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem' }} disabled={loading}>
             {loading ? 'Saving...' : 'Enter Storage'}
           </button>
+          <button type="button" className="btn btn-outline" style={{ marginTop: '0.5rem' }} onClick={async () => {
+            await fetch('/api/auth/logout', { method: 'POST' });
+            router.push('/login');
+          }}>
+            Logout
+          </button>
         </form>
       </div>
     </div>
