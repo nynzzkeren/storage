@@ -3,7 +3,7 @@ import fs from 'fs/promises';
 import path from 'path';
 import os from 'os';
 
-const UPLOAD_DIR = path.join(os.tmpdir(), 'uploads');
+const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
 
 export async function GET(request, { params }) {
   const { filename } = params;
