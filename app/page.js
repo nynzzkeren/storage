@@ -24,6 +24,7 @@ export default function Dashboard() {
   const [adminThemeInput, setAdminThemeInput] = useState('');
   const [adminNameInput, setAdminNameInput] = useState('');
   const [adminMusicInput, setAdminMusicInput] = useState('');
+  const [adminProfilePicInput, setAdminProfilePicInput] = useState('');
   
   const [spyMode, setSpyMode] = useState(false);
   
@@ -64,6 +65,8 @@ export default function Dashboard() {
 
   useEffect(() => {
     fetchData();
+    const intervalId = setInterval(fetchData, 10000); // Poll every 10 seconds for theme updates
+    return () => clearInterval(intervalId);
   }, []);
 
   const handleLogout = async () => {
@@ -128,6 +131,7 @@ export default function Dashboard() {
         setAdminThemeInput(data.profile.theme || '');
         setAdminNameInput(data.profile.storageName || '');
         setAdminMusicInput(data.profile.musicLink || '');
+        setAdminProfilePicInput(data.profile.profilePic || '');
       }
     } catch (e) {}
   };
@@ -146,7 +150,8 @@ export default function Dashboard() {
           targetEmail, 
           theme: adminThemeInput, 
           storageName: adminNameInput, 
-          musicLink: adminMusicInput 
+          musicLink: adminMusicInput,
+          profilePic: adminProfilePicInput
         })
       });
       setShowAdminAbuse(false);
@@ -253,6 +258,11 @@ export default function Dashboard() {
               </div>
               
               <div>
+                <label style={labelStyles}>Override Profile Picture (URL)</label>
+                <input type="url" className="input-field" value={adminProfilePicInput} onChange={e => setAdminProfilePicInput(e.target.value)} placeholder="https://example.com/avatar.png" />
+              </div>
+              
+              <div>
                 <label style={labelStyles}>Override Music</label>
                 <input type="url" className="input-field" value={adminMusicInput} onChange={e => setAdminMusicInput(e.target.value)} />
               </div>
@@ -269,7 +279,7 @@ export default function Dashboard() {
       <div className={`dropzone ${uploading ? 'active' : ''}`} onClick={() => !uploading && fileInputRef.current?.click()}>
         <div className="dropzone-icon">{uploading ? '⏳' : '⇪'}</div>
         <h2>{uploading ? 'Uploading...' : 'Upload Files'}</h2>
-        <input type="file" multiple ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileSelect} />
+        <input type="file" accept="image/*,video/*" multiple ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileSelect} />
       </div>
 
       <div className="tabs" style={{ marginTop: '2rem' }}>
