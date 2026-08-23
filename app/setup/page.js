@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 
 export default function Setup() {
   const [storageName, setStorageName] = useState('');
-  const [profilePic, setProfilePic] = useState('');
+  const [profilePicFile, setProfilePicFile] = useState(null);
   const [loading, setLoading] = useState(false);
   const [checking, setChecking] = useState(true);
   const router = useRouter();
@@ -31,12 +31,29 @@ export default function Setup() {
     setLoading(true);
     
     try {
+      let finalProfilePicUrl = '';
+
+      if (profilePicFile) {
+        const formData = new FormData();
+        formData.append('file', profilePicFile);
+        
+        const uploadRes = await fetch('/api/profile/upload-pp', {
+          method: 'POST',
+          body: formData,
+        });
+        
+        if (uploadRes.ok) {
+          const uploadData = await uploadRes.json();
+          finalProfilePicUrl = uploadData.url;
+        }
+      }
+
       const res = await fetch('/api/profile', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ 
           storageName: storageName || 'My Storage', 
-          profilePic, 
+          ...(finalProfilePicUrl && { profilePic: finalProfilePicUrl }),
           isSetupComplete: true 
         })
       });
@@ -70,13 +87,12 @@ export default function Setup() {
             />
           </div>
           <div>
-            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--light-gray)' }}>Profile Picture URL</label>
+            <label style={{ display: 'block', marginBottom: '0.5rem', fontSize: '0.9rem', color: 'var(--light-gray)' }}>Profile Picture</label>
             <input 
-              type="url" 
+              type="file" 
               className="input-field" 
-              value={profilePic} 
-              onChange={(e) => setProfilePic(e.target.value)} 
-              placeholder="https://example.com/avatar.png"
+              accept="image/*"
+              onChange={(e) => setProfilePicFile(e.target.files[0])} 
             />
           </div>
           <button type="submit" className="btn btn-primary" style={{ marginTop: '1rem' }} disabled={loading}>
