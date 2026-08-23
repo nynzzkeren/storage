@@ -25,6 +25,8 @@ export default function Dashboard() {
   const [adminNameInput, setAdminNameInput] = useState('');
   const [adminMusicInput, setAdminMusicInput] = useState('');
   
+  const [spyMode, setSpyMode] = useState(false);
+  
   const fileInputRef = useRef(null);
   const audioRef = useRef(null);
   const router = useRouter();
