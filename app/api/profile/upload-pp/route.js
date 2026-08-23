@@ -3,8 +3,9 @@ import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
 import crypto from 'crypto';
+import os from 'os';
 
-const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
+const UPLOAD_DIR = path.join(os.tmpdir(), 'uploads');
 
 async function ensureUploadDir() {
   try {

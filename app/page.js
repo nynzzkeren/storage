@@ -171,8 +171,8 @@ export default function Dashboard() {
 
   // Stats
   const myFiles = files.filter(f => f.uploader === email && f.status !== 'permanent_deleted');
-  const photos = myFiles.filter(f => f.type.startsWith('image/')).length;
-  const videos = myFiles.filter(f => f.type.startsWith('video/')).length;
+  const photos = myFiles.filter(f => f.type?.startsWith('image/')).length;
+  const videos = myFiles.filter(f => f.type?.startsWith('video/')).length;
   const totalFiles = myFiles.length;
 
   return (
@@ -284,9 +284,9 @@ export default function Dashboard() {
         {filteredFiles.map(file => (
           <div key={file.id} className="card file-card" style={activeTab === 'permanent_deleted' ? { opacity: 0.5, borderStyle: 'dashed' } : {}}>
             <div>
-              {file.type.startsWith('image/') ? (
+              {file.type?.startsWith('image/') ? (
                 <img src={`/api/files/${file.id}`} alt={file.originalName} className="file-preview" />
-              ) : file.type.startsWith('video/') ? (
+              ) : file.type?.startsWith('video/') ? (
                 <video src={`/api/files/${file.id}`} className="file-preview" autoPlay loop muted playsInline />
               ) : (
                 <div className="file-icon">📄</div>

@@ -2,9 +2,10 @@ import { cookies } from 'next/headers';
 import { NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
+import os from 'os';
 import { getFile, updateFileStatus } from '../../../../lib/db';
 
-const UPLOAD_DIR = path.join(process.cwd(), 'uploads');
+const UPLOAD_DIR = path.join(os.tmpdir(), 'uploads');
 
 export async function GET(request, { params }) {
   const cookieStore = cookies();
