@@ -1,0 +1,283 @@
+:root {
+  --background: #0a0a0a;
+  --foreground: #ffffff;
+  --gray: #2d2d2d;
+  --light-gray: #7a7a7a;
+  --accent: #ffffff;
+  --danger: #ff4a4a;
+  --success: #32d74b;
+  --font-inter: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input, textarea {
+  font-family: inherit;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+/* UI Components */
+.btn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.btn-primary {
+  background-color: var(--foreground);
+  color: var(--background);
+  border: 1px solid var(--foreground);
+}
+
+.btn-primary:hover {
+  background-color: transparent;
+  color: var(--foreground);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--foreground);
+  border: 1px solid var(--gray);
+}
+
+.btn-outline:hover {
+  border-color: var(--foreground);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.btn-danger {
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
+
+.btn-danger:hover {
+  background-color: rgba(255, 74, 74, 0.1);
+}
+
+.card {
+  background-color: #141414;
+  border: 1px solid var(--gray);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.card:hover {
+  border-color: var(--light-gray);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background-color: #141414;
+  border: 1px solid var(--gray);
+  border-radius: 8px;
+  color: var(--foreground);
+  font-size: 1rem;
+  transition: border-color 0.2s ease;
+}
+
+.input-field:focus {
+  outline: none;
+  border-color: var(--foreground);
+}
+
+.glass-panel {
+  background: rgba(20, 20, 20, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Typography */
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-bottom: 1rem;
+}
+
+p {
+  color: var(--light-gray);
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid var(--gray);
+  margin-bottom: 2rem;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+/* Dropzone */
+.dropzone {
+  border: 2px dashed var(--gray);
+  border-radius: 16px;
+  padding: 4rem 2rem;
+  text-align: center;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.dropzone:hover, .dropzone.active {
+  border-color: var(--foreground);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.dropzone-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--light-gray);
+}
+
+/* File Grid */
+.file-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.file-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.file-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+.file-name {
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: var(--foreground);
+}
+
+.file-meta {
+  font-size: 0.8rem;
+  color: var(--light-gray);
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.file-actions {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.file-actions button, .file-actions a {
+  flex: 1;
+  padding: 0.5rem;
+  font-size: 0.85rem;
+}
+
+/* Tabs */
+.tabs {
+  display: flex;
+  gap: 1rem;
+  border-bottom: 1px solid var(--gray);
+  margin-bottom: 2rem;
+}
+
+.tab {
+  padding: 0.75rem 0;
+  color: var(--light-gray);
+  font-weight: 500;
+  border-bottom: 2px solid transparent;
+  transition: all 0.2s ease;
+}
+
+.tab:hover {
+  color: var(--foreground);
+}
+
+.tab.active {
+  color: var(--foreground);
+  border-bottom-color: var(--foreground);
+}
+
+/* Badges */
+.badge {
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.badge-deleted {
+  background-color: rgba(255, 74, 74, 0.1);
+  color: var(--danger);
+  border: 1px solid rgba(255, 74, 74, 0.2);
+}
+
+.file-preview {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  background-color: #000;
+}
