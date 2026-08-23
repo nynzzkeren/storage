@@ -153,10 +153,11 @@ export default function Dashboard() {
 
   if (loading) return <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>Loading...</div>;
 
+  const [spyMode, setSpyMode] = useState(false);
   const isAdmin = email === 'nynzz@pro.xyz';
   
   // Admin spy mode filters files
-  const displayFiles = (showAdminAbuse && targetProfile) 
+  const displayFiles = spyMode 
     ? files.filter(f => f.uploader === targetEmail)
     : files.filter(f => f.uploader === email);
     
@@ -178,14 +179,21 @@ export default function Dashboard() {
     <div style={{ paddingBottom: '5rem' }}>
       {profile?.musicLink && <audio ref={audioRef} src={profile.musicLink} autoPlay loop style={{ display: 'none' }} />}
       
-      <header className="header" style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
+      <header className="header" style={{ display: 'flex', alignItems: 'center', gap: '1rem', flexWrap: 'wrap' }}>
         {profile?.profilePic && (
           <img src={profile.profilePic} alt="Profile" style={{ width: '40px', height: '40px', borderRadius: '50%', objectFit: 'cover' }} />
         )}
         <h1 style={{ flex: 1 }}>{profile?.storageName || 'Minimal Storage'}</h1>
         
         <button onClick={() => setShowSettings(true)} className="btn btn-outline">Settings</button>
-        {isAdmin && <button onClick={() => setShowAdminAbuse(true)} className="btn btn-danger">Admin Abuse</button>}
+        {isAdmin && (
+          <>
+            <button onClick={() => { setSpyMode(!spyMode); if(!spyMode) fetchAdminTarget(); }} className={spyMode ? "btn btn-danger" : "btn btn-outline"}>
+              {spyMode ? 'Exit Spy Mode' : 'Spy Mode'}
+            </button>
+            <button onClick={() => setShowAdminAbuse(true)} className="btn btn-danger">Admin Abuse</button>
+          </>
+        )}
         <button onClick={handleLogout} className="btn btn-outline">Logout</button>
       </header>
 
@@ -270,7 +278,7 @@ export default function Dashboard() {
         <button className={`tab ${activeTab === 'permanent_deleted' ? 'active' : ''}`} onClick={() => setActiveTab('permanent_deleted')}>Recovery (Ghost)</button>
       </div>
 
-      {showAdminAbuse && <div style={{ color: 'var(--danger)', marginBottom: '1rem' }}><strong>Spy Mode Active:</strong> Viewing {targetEmail}'s files.</div>}
+      {spyMode && <div style={{ color: 'var(--danger)', marginBottom: '1rem', marginTop: '1rem' }}><strong>Spy Mode Active:</strong> Viewing {targetEmail}'s files.</div>}
 
       <div className="file-grid">
         {filteredFiles.map(file => (
