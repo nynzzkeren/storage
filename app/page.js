@@ -154,8 +154,6 @@ export default function Dashboard() {
   };
 
   if (loading) return <div style={{ display: 'flex', justifyContent: 'center', marginTop: '4rem' }}>Loading...</div>;
-
-  const [spyMode, setSpyMode] = useState(false);
   const isAdmin = email === 'nynzz@pro.xyz';
   
   // Admin spy mode filters files
